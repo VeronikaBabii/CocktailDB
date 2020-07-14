@@ -11,7 +11,6 @@ import UIKit
 class CategoryCell: UITableViewCell {
 
     @IBOutlet weak var categoryLabel: UILabel!
-    
     @IBOutlet weak var checkBoxButton: CheckBox!
     
     func styleButton() {

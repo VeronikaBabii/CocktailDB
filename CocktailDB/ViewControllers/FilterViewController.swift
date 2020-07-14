@@ -10,8 +10,7 @@ import UIKit
 
 class FilterViewController: UIViewController {
 
-    var categoriesArray: [String] = ["Ordinary Drink", "Cocktail", "Milk / Float / Shake", "Other/Unknown", "Cocoa", "Shot",
-                                     "Coffee / Tea", "Homemade Liqueur", "Punch / Party Drink", "Beer", "Soft Drink / Soda"]
+    var categories = [Category]()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var applyButton: UIButton!
@@ -19,37 +18,53 @@ class FilterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        getCategories()
     }
     
     @IBAction func applyButtonClicked(_ sender: UIButton) {
         print("Filter applied")
-        
-        
     }
-    
     
     func setup() {
         navigationController?.navigationBar.tintColor = UIColor.black
         applyButton.tintColor = .white
         applyButton.backgroundColor = .black
+    }
+    
+    func getCategories() {
+        let url = URL(string: "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list")
         
+        URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            
+            if error == nil {
+                do {
+                    self.categories = try JSONDecoder().decode(Categories.self, from: data!).drinks
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+        }.resume()
     }
 
 }
 
 extension FilterViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categoriesArray.count
+        return categories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath) as! CategoryCell
         
-        cell.categoryLabel.text = categoriesArray[indexPath.row]
+        cell.categoryLabel.text = categories[indexPath.row].strCategory
         cell.styleButton()
         
         return cell
     }
-    
-    
 }

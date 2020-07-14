@@ -19,7 +19,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         setup()
         getCategories()
-        getDrinks()
+        
+        getDrinksFrom(category: "Cocoa")
+    }
+    
+    func setup() {
+        navigationController?.navigationBar.tintColor = UIColor.black
     }
     
     func getCategories() {
@@ -34,7 +39,6 @@ class ViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
-                    
                     print(self.categories)
                     
                 } catch {
@@ -44,8 +48,7 @@ class ViewController: UIViewController {
         }.resume()
     }
     
-    func getDrinks() {
-        let category = "Cocoa"
+    func getDrinksFrom(category: String) {
         let url = URL(string: "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=\(category)")
         
         URLSession.shared.dataTask(with: url!) { (data, response, error) in
@@ -57,7 +60,6 @@ class ViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
-                    
                     print(self.drinks)
                     
                 } catch {
@@ -67,27 +69,29 @@ class ViewController: UIViewController {
         }.resume()
     }
     
-    func setup() {
-        navigationController?.navigationBar.tintColor = UIColor.black
-    }
 }
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return drinks.count
+        return categories.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return ""
+        return categories[section].strCategory
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell(style: .default, reuseIdentifier: "cell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "drinkCell") as! DrinkCell
+        
+        cell.drinkName.text = ""
+        cell.drinkImage.image = UIImage()
+        
+        return cell
     }
     
     
