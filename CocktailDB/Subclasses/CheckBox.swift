@@ -54,11 +54,7 @@ class CheckBox: UIButton {
     
     @objc func buttonClicked(sender: UIButton) {
         if sender == self {
-            if self.isSelected == false {
-                self.isSelected = true
-            } else {
-                self.isSelected = false
-            }
+             sender.isSelected = !sender.isSelected
         }
     }
 }
