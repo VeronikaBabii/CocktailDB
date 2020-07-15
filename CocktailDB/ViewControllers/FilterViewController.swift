@@ -13,7 +13,7 @@ protocol FilterViewProtocol: AnyObject {
 }
 
 class FilterViewController: UIViewController {
-
+    
     var categories = [Category]()
     
     var output = [[String : Any]]()
@@ -40,7 +40,7 @@ class FilterViewController: UIViewController {
             }
         }
         selectedCtgsArr = selectedCatgry
-        print(selectedCtgsArr)
+        print("Selected categories are \(selectedCtgsArr)")
     }
     
     func getCategories() {

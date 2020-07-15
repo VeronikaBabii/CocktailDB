@@ -8,7 +8,7 @@
 
 import Foundation
 
-// to display category section in the tableview
+// category section in the ViewController tableview
 struct OneCategory {
     let name : String
     var drinks : [Drink]

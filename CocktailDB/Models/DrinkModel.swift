@@ -8,7 +8,6 @@
 
 import Foundation
 
-// root struct
 struct Response:Decodable {
     var drinks: [Drink]
 }

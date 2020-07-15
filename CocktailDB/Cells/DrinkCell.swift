@@ -9,8 +9,8 @@
 import UIKit
 
 class DrinkCell: UITableViewCell {
-
+    
     @IBOutlet weak var drinkName: UILabel!
     @IBOutlet weak var drinkImage: UIImageView!
-
+    
 }
