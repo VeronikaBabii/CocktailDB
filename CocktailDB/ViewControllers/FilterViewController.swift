@@ -8,13 +8,17 @@
 
 import UIKit
 
+protocol FilterViewProtocol: AnyObject {
+    var selectedCatgry: [String] {get}
+}
+
 class FilterViewController: UIViewController {
 
     var categories = [Category]()
     
-    var datas = [[String : Any]]()
+    var output = [[String : Any]]()
     
-    var selectedCatArr = [String]()
+    var selectedCtgsArr = [String]()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var applyButton: UIButton!
@@ -28,16 +32,15 @@ class FilterViewController: UIViewController {
     @IBAction func applyButtonClicked(_ sender: UIButton) {
         
         var selectedCatgry = [String]()
-        for i in 0..<datas.count
-        {
-            let rowVal = datas[i]
+        
+        for i in 0..<output.count {
+            let rowVal = output[i]
             if rowVal["status"] as! String == "1"{
                 selectedCatgry.append(rowVal["name"] as! String)
             }
         }
-        print(selectedCatgry)
-        selectedCatArr = selectedCatgry
-        print(selectedCatArr)
+        selectedCtgsArr = selectedCatgry
+        print(selectedCtgsArr)
     }
     
     func getCategories() {
@@ -50,7 +53,7 @@ class FilterViewController: UIViewController {
                     self.categories = try JSONDecoder().decode(Categories.self, from: data!).drinks
                     
                     for i in 0..<self.categories.count {
-                        self.datas.append(["name":self.categories[i].strCategory, "status":"1"])
+                        self.output.append(["name":self.categories[i].strCategory, "status":"1"])
                     }
                     
                     DispatchQueue.main.async {
@@ -70,8 +73,8 @@ class FilterViewController: UIViewController {
     }
     
     @objc func subscribeTapped(_ sender: UIButton){
-        var sel = datas[sender.tag]
-        datas.remove(at: sender.tag)
+        var sel = output[sender.tag]
+        output.remove(at: sender.tag)
         
         if sel["status"] as! String == "1"{
             sel.updateValue("0", forKey: "status")
@@ -79,7 +82,7 @@ class FilterViewController: UIViewController {
             sel.updateValue("1", forKey: "status")
         }
         
-        datas.insert(sel, at: sender.tag)
+        output.insert(sel, at: sender.tag)
         tableView.reloadData()
     }
 }
@@ -87,8 +90,7 @@ class FilterViewController: UIViewController {
 extension FilterViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       // return categories.count
-        return datas.count
+        return output.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -97,14 +99,15 @@ extension FilterViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.styleButton()
         
-        let val = datas[indexPath.row]
+        let val = output[indexPath.row]
         cell.categoryLabel.text = (val["name"] as! String)
         
         if (val["status"] as! String) == "1"{
             cell.checkBoxButton.setImage(UIImage(systemName: "checked-image"), for: .normal)
-        }else {
+        } else {
             cell.checkBoxButton.setImage(UIImage(systemName: "unchecked-image"), for: .normal)
         }
+        
         cell.checkBoxButton.addTarget(self, action: #selector(subscribeTapped(_:)), for: .touchUpInside)
         cell.checkBoxButton.tag = indexPath.row
         

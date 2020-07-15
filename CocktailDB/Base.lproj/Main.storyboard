@@ -10,13 +10,13 @@
         <!--Drinks-->
         <scene sceneID="nQJ-Nm-5ga">
             <objects>
-                <viewController id="6lU-8L-Mvx" customClass="ViewController" customModule="CocktailDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="6lU-8L-Mvx" customClass="ViewController" customModule="CocktailDB" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xYs-cW-adj">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="120" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="yiT-16-WdT">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="drinkCell" id="D5f-Pu-pkG" customClass="DrinkCell" customModule="CocktailDB" customModuleProvider="target">
@@ -77,7 +77,7 @@
                     <navigationItem key="navigationItem" title="Drinks" id="K53-gQ-Okp">
                         <barButtonItem key="rightBarButtonItem" image="filter-image" id="cPg-gO-1Ug">
                             <connections>
-                                <segue destination="6m5-px-14e" kind="show" id="BEB-gJ-mGR"/>
+                                <segue destination="6m5-px-14e" kind="show" identifier="" id="BEB-gJ-mGR"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -92,7 +92,7 @@
         <!--Filters-->
         <scene sceneID="uP2-BC-y0y">
             <objects>
-                <viewController id="6m5-px-14e" customClass="FilterViewController" customModule="CocktailDB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="6m5-px-14e" customClass="FilterViewController" customModule="CocktailDB" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zhd-sQ-O7X">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

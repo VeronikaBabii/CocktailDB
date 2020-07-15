@@ -10,8 +10,14 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    var filter: FilterViewProtocol!
+    
     var drinks = [Drink]()
     var categories = [OneCategory]()
+    
+    var limit = 10
+    
+    var selectedCategoriesArr: [String] = []
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -21,12 +27,21 @@ class ViewController: UIViewController {
         
         loadAllCategories()
         
-        //var selectedCategoriesArr: [String] = ["Cocoa", "Shot"]
         
 //        getCategories { [weak self] in
 //            self?.getDrinksFrom(category: "Cocoa")
 //            self?.getDrinksFrom(category: "Shot")
 //        }
+        
+        
+        // transfer selectedCategoriesArray data from FilterViewController to ViewController on "Apply" button click: via protocol/segue
+        
+        
+        // loop through selectedCategoriesArray and call getDrinksFrom for each element
+        
+        
+        // tableview pagination
+        
         
     }
     
@@ -84,37 +99,37 @@ class ViewController: UIViewController {
     
     func getCategories(completion: @escaping () -> Void) {
         let url = URL(string: "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list")
-        
+
         URLSession.shared.dataTask(with: url!) { (data, response, error) in
-            
+
             if let error = error { print(error); return }
             do {
                 let result = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
                 let categoryNames = result["drinks"] as! [[String:String]]
                 self.categories = categoryNames.map{ OneCategory(name: $0["strCategory"]!, drinks:[])}
                 completion()
-                
+
             } catch {
                 print(error)
             }
         }.resume()
     }
-    
+
     func getDrinksFrom(category: String) {
         let url = URL(string: "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=\(category)")
-        
+
         URLSession.shared.dataTask(with: url!) { (data, response, error) in
-            
+
             if let error = error { print(error); return }
             do {
                 let drinks = try JSONDecoder().decode(Response.self, from: data!).drinks
                 guard let index = self.categories.firstIndex(where: {$0.name == category}) else { return }
                 self.categories[index].drinks = drinks
-                
+
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
-                
+
             } catch {
                 print(error)
             }
@@ -123,6 +138,7 @@ class ViewController: UIViewController {
     
     func setup() {
         navigationController?.navigationBar.tintColor = UIColor.black
+        tableView.tableFooterView = UIView(frame: .zero)
     }
 }
 
@@ -154,6 +170,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+// load image from web
 extension UIImageView {
     func downloaded(from url: URL, contentMode mode: UIView.ContentMode = .scaleAspectFit) {
         contentMode = mode
