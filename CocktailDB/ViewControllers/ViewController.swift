@@ -11,39 +11,91 @@ import UIKit
 class ViewController: UIViewController {
     
     var drinks = [Drink]()
-    var categories = [Category]()
+    var categories = [OneCategory]()
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        getCategories()
         
-        getDrinksFrom(category: "Cocoa")
+        loadAllCategories()
+        
+        //var selectedCategoriesArr: [String] = ["Cocoa", "Shot"]
+        
+//        getCategories { [weak self] in
+//            self?.getDrinksFrom(category: "Cocoa")
+//            self?.getDrinksFrom(category: "Shot")
+//        }
+        
     }
     
-    func setup() {
-        navigationController?.navigationBar.tintColor = UIColor.black
-    }
-    
-    func getCategories() {
+    func loadAllCategories() {
         let url = URL(string: "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list")
         
         URLSession.shared.dataTask(with: url!) { (data, response, error) in
             
-            if error == nil {
-                do {
-                    self.categories = try JSONDecoder().decode(Categories.self, from: data!).drinks
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            do {
+                let result = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
+                let categoryNames = (result["drinks"] as! [[String:String]]).map{$0["strCategory"]!}
+                let group = DispatchGroup()
+                
+                for category in categoryNames {
+                    let categoryURLString = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=\(category)"
+                        .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+                    let categoryURL = URL(string: categoryURLString)!
                     
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
+                    group.enter()
+                    let categoryTask = URLSession.shared.dataTask(with: categoryURL) { (categoryData, _, categoryError) in
+                        
+                        defer {
+                            group.leave()
+                        }
+                        
+                        if let categoryError = categoryError {
+                            print(categoryError)
+                            return
+                        }
+                        
+                        do {
+                            let drinks = try JSONDecoder().decode(Response.self, from: categoryData!).drinks
+                            self.categories.append(OneCategory(name: category, drinks: drinks))
+                        } catch {
+                            print(error)
+                        }
                     }
-                    print(self.categories)
-                    
-                } catch {
-                    print(error)
+                    categoryTask.resume()
                 }
+                
+                group.notify(queue: .main) {
+                    self.tableView.reloadData()
+                }
+                
+            } catch {
+                print(error)
+            }
+        }.resume()
+    }
+    
+    func getCategories(completion: @escaping () -> Void) {
+        let url = URL(string: "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list")
+        
+        URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            
+            if let error = error { print(error); return }
+            do {
+                let result = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
+                let categoryNames = result["drinks"] as! [[String:String]]
+                self.categories = categoryNames.map{ OneCategory(name: $0["strCategory"]!, drinks:[])}
+                completion()
+                
+            } catch {
+                print(error)
             }
         }.resume()
     }
@@ -53,22 +105,25 @@ class ViewController: UIViewController {
         
         URLSession.shared.dataTask(with: url!) { (data, response, error) in
             
-            if error == nil {
-                do {
-                    self.drinks = try JSONDecoder().decode(Drinks.self, from: data!).drinks
-                    
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
-                    print(self.drinks)
-                    
-                } catch {
-                    print(error)
+            if let error = error { print(error); return }
+            do {
+                let drinks = try JSONDecoder().decode(Response.self, from: data!).drinks
+                guard let index = self.categories.firstIndex(where: {$0.name == category}) else { return }
+                self.categories[index].drinks = drinks
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
                 }
+                
+            } catch {
+                print(error)
             }
         }.resume()
     }
     
+    func setup() {
+        navigationController?.navigationBar.tintColor = UIColor.black
+    }
 }
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
@@ -78,19 +133,21 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return categories[section].strCategory
+        return categories[section].name
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return categories[section].drinks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "drinkCell") as! DrinkCell
         
-        cell.drinkName.text = drinks[indexPath.row].strDrink
+        let category = categories[indexPath.section]
+        let drink = category.drinks[indexPath.row]
+        cell.drinkName.text = drink.strDrink
         
-        let url = drinks[indexPath.row].strDrinkThumb
+        let url = drink.strDrinkThumb
         cell.drinkImage.downloaded(from: url)
         
         return cell

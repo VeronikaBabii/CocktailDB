@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct Drinks:Decodable {
+// root struct
+struct Response:Decodable {
     var drinks: [Drink]
 }
 

@@ -8,3 +8,8 @@
 
 import Foundation
 
+// to display category section in the tableview
+struct OneCategory {
+    let name : String
+    var drinks : [Drink]
+}
