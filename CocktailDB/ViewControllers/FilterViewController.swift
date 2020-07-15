@@ -23,6 +23,8 @@ class FilterViewController: UIViewController {
     
     @IBAction func applyButtonClicked(_ sender: UIButton) {
         print("Filter applied")
+        
+        
     }
     
     func setup() {

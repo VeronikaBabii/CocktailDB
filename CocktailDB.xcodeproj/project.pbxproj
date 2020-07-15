@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		152F7BE024BE1CD80022E2FF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152F7BDF24BE1CD80022E2FF /* ViewController.swift */; };
 		152F7BE224BE36B10022E2FF /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152F7BE124BE36B10022E2FF /* FilterViewController.swift */; };
+		155D745724BEF49F0015A09B /* OneCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155D745624BEF49F0015A09B /* OneCategoryModel.swift */; };
 		155FA4AC24BC88E200879954 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155FA4AB24BC88E200879954 /* AppDelegate.swift */; };
 		155FA4AE24BC88E200879954 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155FA4AD24BC88E200879954 /* SceneDelegate.swift */; };
 		155FA4B324BC88E200879954 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 155FA4B124BC88E200879954 /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 /* Begin PBXFileReference section */
 		152F7BDF24BE1CD80022E2FF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		152F7BE124BE36B10022E2FF /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		155D745624BEF49F0015A09B /* OneCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneCategoryModel.swift; sourceTree = "<group>"; };
 		155FA4A824BC88E200879954 /* CocktailDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CocktailDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		155FA4AB24BC88E200879954 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		155FA4AD24BC88E200879954 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 			children = (
 				15AF9F3124BE4E4700718AD7 /* CategoryModel.swift */,
 				15AF9F3324BE4E5100718AD7 /* DrinkModel.swift */,
+				155D745624BEF49F0015A09B /* OneCategoryModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 				155FA4AC24BC88E200879954 /* AppDelegate.swift in Sources */,
 				15AF9F3024BE42E300718AD7 /* CheckBox.swift in Sources */,
 				152F7BE224BE36B10022E2FF /* FilterViewController.swift in Sources */,
+				155D745724BEF49F0015A09B /* OneCategoryModel.swift in Sources */,
 				15AF9F3724BE624000718AD7 /* DrinkCell.swift in Sources */,
 				15AF9F3424BE4E5100718AD7 /* DrinkModel.swift in Sources */,
 				15AF9F3224BE4E4700718AD7 /* CategoryModel.swift in Sources */,

@@ -26,18 +26,32 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fXu-b6-5TI">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fXu-b6-5TI">
                                                     <rect key="frame" x="20" y="11" width="98" height="98"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="98" id="rKI-Ak-IwO"/>
+                                                        <constraint firstAttribute="width" constant="98" id="x3g-VN-4RW"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GcJ-JA-DkM">
-                                                    <rect key="frame" x="138" y="43" width="174" height="34"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GcJ-JA-DkM">
+                                                    <rect key="frame" x="148" y="45" width="236" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="BvG-S8-9aZ"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="fXu-b6-5TI" firstAttribute="centerY" secondItem="M0Y-Lf-78l" secondAttribute="centerY" id="6rv-sZ-r5V"/>
+                                                <constraint firstItem="GcJ-JA-DkM" firstAttribute="centerY" secondItem="M0Y-Lf-78l" secondAttribute="centerY" id="DKf-dN-ZHW"/>
+                                                <constraint firstItem="fXu-b6-5TI" firstAttribute="top" secondItem="M0Y-Lf-78l" secondAttribute="topMargin" id="FlC-wE-Jq8"/>
+                                                <constraint firstItem="fXu-b6-5TI" firstAttribute="leading" secondItem="M0Y-Lf-78l" secondAttribute="leadingMargin" id="cPU-t2-iPF"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="GcJ-JA-DkM" secondAttribute="trailing" constant="10" id="gYA-qf-xxI"/>
+                                                <constraint firstItem="GcJ-JA-DkM" firstAttribute="leading" secondItem="fXu-b6-5TI" secondAttribute="trailing" constant="30" id="gyi-nD-MrS"/>
+                                                <constraint firstItem="fXu-b6-5TI" firstAttribute="bottom" secondItem="M0Y-Lf-78l" secondAttribute="bottomMargin" id="uKS-bq-qeK"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="drinkImage" destination="fXu-b6-5TI" id="SWI-ca-2wH"/>
