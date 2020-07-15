@@ -33,10 +33,10 @@
                                                         <constraint firstAttribute="width" constant="98" id="x3g-VN-4RW"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GcJ-JA-DkM">
-                                                    <rect key="frame" x="148" y="45" width="236" height="30"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GcJ-JA-DkM">
+                                                    <rect key="frame" x="148" y="30" width="236" height="60"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="BvG-S8-9aZ"/>
+                                                        <constraint firstAttribute="height" constant="60" id="BvG-S8-9aZ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
